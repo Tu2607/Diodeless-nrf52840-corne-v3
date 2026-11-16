@@ -1,65 +1,92 @@
 # Diodeless nRF52840 Corne v3
 
-A diodeless (direct-pin), Bluetooth variant of the [Corne Cherry v3.0.1](https://github.com/foostan/crkbd/tree/v3-final) by foostan.
+A diodeless (direct-pin), Bluetooth variant of the [Corne Cherry v3.0.1](https://github.com/foostan/crkbd/tree/v3-final) by foostan. This repository holds the files and instructions needed to build one.
 
 ![Top layout](images/layout-top.png)
 
-**Status: revision 0.4. Routed and DRC clean for connectivity and clearance, but not yet fabricated or tested. Check the open items below before ordering boards.**
+**Status: revision 0.4. The board passes KiCad DRC for connectivity and clearance, but it has not been fabricated or tested yet. Read [Check before ordering](#check-before-ordering) first.**
 
 ## What it is
 
 - 3x6+3 keys per half, with the same outline, key positions and mounting holes as Corne v3
-- nice!nano v2 (nRF52840) running ZMK, mounted face down like the stock Corne controller
+- nice!nano v2 (nRF52840) running ZMK, one per half
 - One GPIO per switch and no diodes. All 21 GPIOs per half are used, including the three inner pads P1.01, P1.02 and P1.07
 - Every key takes either a Kailh MX hotswap socket or a Kailh Choc v1 hotswap socket
-- OLED, RGB LEDs and the TRRS jack are removed
-- C&K GT11MSCBE sealed surface-mount toggle as the power switch, where the TRRS jack was
-- Two wire pads marked TOGGLE, in parallel with the power switch, for an off-board switch instead
-- JST-PH 2-pin battery connector below the controller
-- Reset button kept
+- C&K GT11MSCBE sealed toggle as the power switch, where the Corne's TRRS jack was
+- No OLED, no RGB and no TRRS cable
 
 ## Files
 
 | Path | Contents |
 |---|---|
-| `pcb/` | KiCad 7 board, project file and the local footprint library |
-| `gerbers/` | Gerber and drill files, plus a zip of the same |
-| `PINMAP.md` | Key to pin table and a ZMK direct key scan snippet for each half |
+| `gerbers/corne-diodeless-gerbers.zip` | The file to upload to a PCB manufacturer |
+| `gerbers/` | The same gerber and drill files, unzipped |
+| `pcb/` | KiCad 7 board, project file and footprint library, for viewing or editing |
+| `PINMAP.md` | Which pin each key uses, with a ZMK key scan snippet for each half |
 | `images/` | Renders of the top, bottom, power switch area and socket pads |
-| `scripts/` | The scripts that generated the board from the stock v3 board |
 
-There is no schematic yet. Nets were assigned directly on the board by `scripts/stage1.py`.
+There is no schematic. Each switch simply connects one controller pin to ground, as listed in `PINMAP.md`.
 
-## Open items before ordering
+## Check before ordering
 
-- The GT11MSCBE pad layout comes from two community footprints that agree with each other, not from the datasheet land pattern. Check a real switch against a 1:1 print.
-- The GT11MSCBE is rated 0.4 VA at up to 20 V, which is about 95 mA at battery voltage. The nice!nano charges at about 100 mA through the switch, so it is at its limit while charging.
-- The position of the three inner nice!nano pads comes from community footprints. Check it against a real board.
-- JST-PH battery polarity is not standardised. Check your battery lead against the + and - silkscreen.
-- Corne v3 plates and cases are cut for MX. A Choc build needs a Choc plate or no plate.
-- With the power switch off, the battery is disconnected and will not charge over USB.
+- **Power switch pads.** The GT11MSCBE pad layout comes from two community footprints that agree with each other, not from the datasheet's own drawing. Print the board at 1:1 and lay a real switch on it.
+- **Power switch rating.** The GT11MSCBE is rated 0.4 VA at up to 20 V, about 95 mA at battery voltage. The nice!nano charges at about 100 mA through the switch, so the switch is at its limit while charging.
+- **Inner controller pads.** The position of P1.01, P1.02 and P1.07 comes from community footprints. Check it against a real nice!nano on the 1:1 print.
+- **Battery polarity.** JST-PH battery leads are not standardised. Match your battery's red wire to the + mark on the board.
+- **Plates and cases.** Corne v3 plates and cases are cut for MX switches. A Choc build needs a Choc plate or no plate.
 
-## Switch sockets
+## Parts
 
-The Choc socket sits on the opposite side of the switch centre from the MX socket. Fit one type per key. Left-half switches are turned 180 degrees relative to v3 (except SW20) so the Choc socket stays clear of the board edge.
+Quantities are for a full keyboard, both halves.
+
+| Part | Qty | Notes |
+|---|---|---|
+| PCB | 1 | One order gives both halves, joined to a frame by break-off tabs |
+| nice!nano v2 | 2 | |
+| Low-profile pin sockets and pins for the controllers | 2 sets | Two 12-pin rows per controller, plus 3 single sockets and pins for the inner pads |
+| Kailh hotswap sockets | 42 | MX sockets or Choc v1 sockets, one type per key |
+| Switches | 42 | MX or Choc v1 to match the sockets |
+| Keycaps | 42 | 40 at 1u and 2 at 1.5u for the inner thumb keys |
+| C&K GT11MSCBE toggle switch | 2 | Power switch |
+| Reset button | 2 | Same 2-pin through-hole button as the Corne v3 |
+| JST-PH 2-pin vertical header (B2B-PH-K) | 2 | Optional. You can solder the battery leads to the pads instead |
+| LiPo battery, 3.7 V | 2 | Small enough to sit under a socketed controller |
+| Corne v3 plates or case, M2 spacers and screws | 1 set | Optional |
+
+## Ordering the PCB
+
+Upload `gerbers/corne-diodeless-gerbers.zip`. It is a two-layer board, 1.6 mm thick. The file is a panel that holds both halves, so some manufacturers will price it as more than one design.
+
+## Assembly
+
+1. **Break the halves out** of the frame and file the tab edges smooth.
+2. **Hotswap sockets, on the back.** Each key has two pairs of pads: the MX pair on one side of the switch centre and the Choc pair on the other. Solder sockets to one pair only. See the picture below.
+3. **Power switch, on the top.** Solder the GT11MSCBE to the pads marked PWR at the inner edge. The three pads on one side are the contacts and the two on the other side hold it down.
+4. **Reset button, on the top**, at the pads marked RESET.
+5. **Battery connector, on the top**, at the pads marked BAT. Skip this if you will solder the battery leads straight to the pads.
+6. **Controller sockets, on the top.** Fit the two 12-pin rows, and the three single sockets in the holes marked 107, 102 and 101.
+7. **Controller.** Solder pins to the nice!nano, including the three inner pads, and plug it in face down, with the components toward the PCB and the USB port at the top edge.
+8. **Battery.** With the power switch off, connect the battery, checking + and -.
+9. **Switches and keycaps.**
 
 ![Socket pads](images/socket-pads-detail.png)
 
-## Power switch
-
 ![Power switch area](images/power-switch-area.png)
 
-## Regenerating the board
+### Using a different power switch
 
-The board is generated, not hand drawn. The scripts need KiCad 7 with its Python API, plus shapely, scipy and matplotlib. They currently use fixed paths under `/home/user/work`, so adjust those first.
+Two holes marked TOGGLE sit next to the power switch and are wired in parallel with it. To use an off-board switch, leave the PWR pads empty and wire your switch across those two holes.
 
-1. `scripts/strip.py` removes tracks, diodes, LEDs, OLED and TRRS from the stock v3 board
-2. `scripts/stage1.py` adds the Choc pads, power switch, battery connector and extra pins, and assigns nets
-3. `scripts/router.py` routes both halves with a small grid router
-4. `scripts/stage3.py` adds the ground pours and labels
-5. `scripts/drc.py` and `scripts/export.sh` check the board and export gerbers and renders
+## Firmware
 
-`scripts/build.sh` runs steps 2 to 5.
+The board runs [ZMK](https://zmk.dev) with its direct-pin key scan driver. `PINMAP.md` lists the pin for every key and gives a ready `kscan` block for each half. A complete ZMK configuration for this board has not been written yet.
+
+After flashing, press every key once to confirm all 21 pins on each half respond. A dead key on one of the three inner pads usually means that pin is not making contact.
+
+## Power notes
+
+- The switch disconnects the battery completely. With it off, the battery will not charge over USB.
+- Turn the switch off before plugging or unplugging the battery.
 
 ## Licence and credit
 
