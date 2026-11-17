@@ -15,6 +15,24 @@ A diodeless (direct-pin), Bluetooth variant of the [Corne Cherry v3.0.1](https:/
 - C&K GT11MSCBE sealed toggle as the power switch, where the Corne's TRRS jack was
 - No OLED, no RGB and no TRRS cable
 
+## 3D preview
+
+These are renders of a 3D model built from the board file. Part positions and sizes are real, but the parts are simple block models and the socket heights are typical values, not measured.
+
+![Assembled, with keycaps](images/3d-full.png)
+
+![Left half without keycaps](images/3d-switches.png)
+
+![Controller, battery connector, reset button and power switch](images/3d-power.png)
+
+The underside, with MX hotswap sockets on one half and Choc sockets on the other for comparison. A real build uses one type per key.
+
+![Underside](images/3d-underside.png)
+
+| MX sockets | Choc sockets |
+|---|---|
+| ![MX sockets](images/3d-underside-mx.png) | ![Choc sockets](images/3d-underside-choc.png) |
+
 ## Files
 
 | Path | Contents |
@@ -23,7 +41,7 @@ A diodeless (direct-pin), Bluetooth variant of the [Corne Cherry v3.0.1](https:/
 | `gerbers/` | The same gerber and drill files, unzipped |
 | `pcb/` | KiCad 7 board, project file and footprint library, for viewing or editing |
 | `PINMAP.md` | Which pin each key uses, with a ZMK key scan snippet for each half |
-| `images/` | Renders of the top, bottom, power switch area and socket pads |
+| `images/` | Board renders and 3D previews |
 
 There is no schematic. Each switch simply connects one controller pin to ground, as listed in `PINMAP.md`.
 
