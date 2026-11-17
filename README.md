@@ -42,6 +42,7 @@ The underside, with MX hotswap sockets on one half and Choc sockets on the other
 | `gerbers/corne-diodeless-gerbers.zip` | The file to upload to a PCB manufacturer |
 | `gerbers/` | The same gerber and drill files, unzipped |
 | `pcb/` | KiCad 7 board, project file and footprint library, for viewing or editing |
+| `BOM.md` | Parts list with part numbers and quantities |
 | `PINMAP.md` | Which pin each key uses, with a ZMK key scan snippet for each half |
 | `images/` | Board renders and 3D previews |
 | `3d-viewer.html` | Interactive 3D model. Download it and open it in a browser |
@@ -57,21 +58,7 @@ There is no schematic. Each switch simply connects one controller pin to ground,
 
 ## Parts
 
-Quantities are for a full keyboard, both halves.
-
-| Part | Qty | Notes |
-|---|---|---|
-| PCB | 1 | One order gives both halves, joined to a frame by break-off tabs |
-| nice!nano v2 | 2 | |
-| Low-profile pin sockets and pins for the controllers | 2 sets | Two 12-pin rows per controller, plus 3 single sockets and pins for the inner pads |
-| Kailh hotswap sockets | 42 | MX sockets or Choc v1 sockets, one type per key |
-| Switches | 42 | MX or Choc v1 to match the sockets |
-| Keycaps | 42 | 40 at 1u and 2 at 1.5u for the inner thumb keys |
-| C&K GT11MSCBE toggle switch | 2 | Power switch |
-| Reset button | 2 | Same 2-pin through-hole button as the Corne v3 |
-| JST-PH 2-pin vertical header (B2B-PH-K) | 2 | Optional. You can solder the battery leads to the pads instead |
-| LiPo battery, 3.7 V | 2 | Small enough to sit under a socketed controller |
-| Corne v3 plates or case, M2 spacers and screws | 1 set | Optional |
+The full parts list with part numbers and quantities is in [`BOM.md`](BOM.md).
 
 ## Ordering the PCB
 
