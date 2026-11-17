@@ -1,0 +1,61 @@
+/*
+ * Copyright (c) 2026 The Diodeless Corne contributors
+ *
+ * SPDX-License-Identifier: MIT
+ */
+
+#include <dt-bindings/zmk/matrix_transform.h>
+
+#include <layouts/foostan/corne/5column.dtsi>
+#include <layouts/foostan/corne/6column.dtsi>
+
+&foostan_corne_6col_layout {
+    transform = <&default_transform>;
+};
+
+&foostan_corne_5col_layout {
+    transform = <&five_column_transform>;
+};
+
+/ {
+    chosen {
+        zmk,kscan = &kscan0;
+        zmk,physical-layout = &foostan_corne_6col_layout;
+    };
+
+    /*
+     * Direct wiring has no rows: each half is one row of 21 inputs.
+     * The left half is inputs 0-20 and the right half is inputs 21-41.
+     * Within a half the inputs run row by row, left to right, then the three thumb keys.
+     */
+    default_transform: keymap_transform_0 {
+        compatible = "zmk,matrix-transform";
+        columns = <42>;
+        rows = <1>;
+        map = <
+RC(0,0)  RC(0,1)  RC(0,2)  RC(0,3)  RC(0,4)  RC(0,5)    RC(0,21) RC(0,22) RC(0,23) RC(0,24) RC(0,25) RC(0,26)
+RC(0,6)  RC(0,7)  RC(0,8)  RC(0,9)  RC(0,10) RC(0,11)   RC(0,27) RC(0,28) RC(0,29) RC(0,30) RC(0,31) RC(0,32)
+RC(0,12) RC(0,13) RC(0,14) RC(0,15) RC(0,16) RC(0,17)   RC(0,33) RC(0,34) RC(0,35) RC(0,36) RC(0,37) RC(0,38)
+                           RC(0,18) RC(0,19) RC(0,20)   RC(0,39) RC(0,40) RC(0,41)
+        >;
+    };
+
+    /* The same board with the two outer columns left empty. */
+    five_column_transform: keymap_transform_1 {
+        compatible = "zmk,matrix-transform";
+        columns = <42>;
+        rows = <1>;
+        map = <
+RC(0,1)  RC(0,2)  RC(0,3)  RC(0,4)  RC(0,5)    RC(0,21) RC(0,22) RC(0,23) RC(0,24) RC(0,25)
+RC(0,7)  RC(0,8)  RC(0,9)  RC(0,10) RC(0,11)   RC(0,27) RC(0,28) RC(0,29) RC(0,30) RC(0,31)
+RC(0,13) RC(0,14) RC(0,15) RC(0,16) RC(0,17)   RC(0,33) RC(0,34) RC(0,35) RC(0,36) RC(0,37)
+                  RC(0,18) RC(0,19) RC(0,20)   RC(0,39) RC(0,40) RC(0,41)
+        >;
+    };
+
+    kscan0: kscan {
+        compatible = "zmk,kscan-gpio-direct";
+        wakeup-source;
+        /* input-gpios are set per half in the left and right overlays. */
+    };
+};

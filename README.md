@@ -43,7 +43,8 @@ The underside, with MX hotswap sockets on one half and Choc sockets on the other
 | `gerbers/` | The same gerber and drill files, unzipped |
 | `pcb/` | KiCad 7 board, project file and footprint library, for viewing or editing |
 | `BOM.md` | Parts list with part numbers and quantities |
-| `PINMAP.md` | Which pin each key uses, with a ZMK key scan snippet for each half |
+| `PINMAP.md` | Which pin each key uses |
+| `boards/`, `config/`, `build.yaml`, `zephyr/` | ZMK firmware source. See [Firmware](#firmware) |
 | `images/` | Board renders and 3D previews |
 | `3d-viewer.html` | Interactive 3D model. Download it and open it in a browser |
 
@@ -86,9 +87,39 @@ Two holes marked TOGGLE sit next to the power switch and are wired in parallel w
 
 ## Firmware
 
-The board runs [ZMK](https://zmk.dev) with its direct-pin key scan driver. `PINMAP.md` lists the pin for every key and gives a ready `kscan` block for each half. A complete ZMK configuration for this board has not been written yet.
+The board runs [ZMK](https://zmk.dev). A stock Corne firmware will not work, because this board has no key matrix. This repo carries its own ZMK setup:
 
-After flashing, press every key once to confirm all 21 pins on each half respond. A dead key on one of the three inner pads usually means that pin is not making contact.
+| Path | Contents |
+|---|---|
+| `boards/shields/corne_diodeless/` | The board definition: one pin per key for each half |
+| `config/corne_diodeless.keymap` | The keymap. It starts as a copy of the stock ZMK Corne keymap |
+| `config/corne_diodeless.conf` | Firmware settings |
+| `build.yaml` | The list of firmware files to build |
+
+### Getting the firmware
+
+GitHub builds the firmware whenever the firmware files change. Open the repo's **Actions** tab, pick the latest "Build ZMK firmware" run, and download the `firmware` file at the bottom. It contains:
+
+- `corne_diodeless_left-nice_nano_v2-zmk.uf2` for the left half
+- `corne_diodeless_right-nice_nano_v2-zmk.uf2` for the right half
+- `settings_reset-nice_nano_v2-zmk.uf2`, which clears saved Bluetooth pairings
+
+### Flashing
+
+1. Plug one half into USB.
+2. Press its reset button twice quickly. A drive named NICENANO appears.
+3. Copy that half's `.uf2` file onto the drive. The drive disappears when it is done.
+4. Repeat for the other half.
+
+The left half is the one that pairs with your computer. If the halves do not find each other, flash the settings reset file to both, then flash the normal files again.
+
+### Changing the keymap
+
+Fork this repo, edit `config/corne_diodeless.keymap`, and push. GitHub builds new firmware files for you. The [ZMK keymap documentation](https://zmk.dev/docs/keymaps) explains the format.
+
+### First test
+
+After flashing, press every key once to confirm all 21 pins on each half respond. A dead key on one of the three inner pads usually means that pin is not making contact. The firmware compiles but has not been tested on a real board yet.
 
 ## Power notes
 

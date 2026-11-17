@@ -1,0 +1,34 @@
+/*
+ * Copyright (c) 2026 The Diodeless Corne contributors
+ *
+ * SPDX-License-Identifier: MIT
+ */
+
+#include "corne_diodeless.dtsi"
+
+/* One GPIO per key, in keymap order for this half: rows left to right, then the thumb keys. */
+&kscan0 {
+    input-gpios
+        = <&pro_micro 21 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>     /*  0  R0C0 SW1  P0.31 */
+        , <&pro_micro 20 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>     /*  1  R0C1 SW2  P0.29 */
+        , <&pro_micro 1 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>      /*  2  R0C2 SW3  P0.06 */
+        , <&pro_micro 2 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>      /*  3  R0C3 SW4  P0.17 */
+        , <&pro_micro 0 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>      /*  4  R0C4 SW5  P0.08 */
+        , <&pro_micro 3 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>      /*  5  R0C5 SW6  P0.20 */
+        , <&pro_micro 15 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>     /*  6  R1C0 SW7  P1.13 */
+        , <&pro_micro 6 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>      /*  7  R1C1 SW8  P1.00 */
+        , <&pro_micro 19 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>     /*  8  R1C2 SW9  P0.02 */
+        , <&pro_micro 5 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>      /*  9  R1C3 SW10  P0.24 */
+        , <&pro_micro 4 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>      /* 10  R1C4 SW11  P0.22 */
+        , <&pro_micro 18 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>     /* 11  R1C5 SW12  P1.15 */
+        , <&pro_micro 10 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>     /* 12  R2C0 SW13  P0.09 */
+        , <&pro_micro 16 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>     /* 13  R2C1 SW14  P0.10 */
+        , <&pro_micro 9 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>      /* 14  R2C2 SW15  P1.06 */
+        , <&gpio1 7 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>          /* 15  R2C3 SW16  P1.07, inner pad */
+        , <&gpio1 2 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>          /* 16  R2C4 SW17  P1.02, inner pad */
+        , <&pro_micro 14 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>     /* 17  R2C5 SW18  P1.11 */
+        , <&pro_micro 8 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>      /* 18  T0   SW19  P1.04 */
+        , <&gpio1 1 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>          /* 19  T1   SW20  P1.01, inner pad */
+        , <&pro_micro 7 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>      /* 20  T2   SW21  P0.11 */
+        ;
+};
