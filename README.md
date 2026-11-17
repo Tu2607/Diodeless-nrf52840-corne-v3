@@ -25,6 +25,8 @@ These are renders of a 3D model built from the board file. Part positions and si
 
 ![Controller, battery connector, reset button and power switch](images/3d-power.png)
 
+For a model you can spin around, download [`3d-viewer.html`](3d-viewer.html) and open it in a browser. It needs an internet connection the first time, to load the 3D library.
+
 The underside, with MX hotswap sockets on one half and Choc sockets on the other for comparison. A real build uses one type per key.
 
 ![Underside](images/3d-underside.png)
@@ -42,6 +44,7 @@ The underside, with MX hotswap sockets on one half and Choc sockets on the other
 | `pcb/` | KiCad 7 board, project file and footprint library, for viewing or editing |
 | `PINMAP.md` | Which pin each key uses, with a ZMK key scan snippet for each half |
 | `images/` | Board renders and 3D previews |
+| `3d-viewer.html` | Interactive 3D model. Download it and open it in a browser |
 
 There is no schematic. Each switch simply connects one controller pin to ground, as listed in `PINMAP.md`.
 
