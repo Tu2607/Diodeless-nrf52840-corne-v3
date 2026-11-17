@@ -1,0 +1,12 @@
+file_format: "1"
+id: corne_diodeless
+name: Diodeless nRF52840 Corne v3
+type: shield
+url: https://github.com/Tu2607/Diodeless-nrf52840-corne-v3
+requires: [pro_micro]
+features:
+  - keys
+  - studio
+siblings:
+  - corne_diodeless_left
+  - corne_diodeless_right

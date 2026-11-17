@@ -1,0 +1,42 @@
+/*
+ * Copyright (c) 2026 The Diodeless Corne contributors
+ *
+ * SPDX-License-Identifier: MIT
+ */
+
+#include "corne_diodeless.dtsi"
+
+&default_transform {
+    col-offset = <21>;
+};
+
+&five_column_transform {
+    col-offset = <21>;
+};
+
+/* One GPIO per key, in keymap order for this half: rows left to right (inner column first), then the thumb keys. */
+&kscan0 {
+    input-gpios
+        = <&pro_micro 21 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>     /*  0  R0C5 SW27  P0.31 */
+        , <&pro_micro 20 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>     /*  1  R0C4 SW26  P0.29 */
+        , <&pro_micro 1 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>      /*  2  R0C3 SW25  P0.06 */
+        , <&pro_micro 0 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>      /*  3  R0C2 SW24  P0.08 */
+        , <&pro_micro 3 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>      /*  4  R0C1 SW23  P0.20 */
+        , <&pro_micro 2 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>      /*  5  R0C0 SW22  P0.17 */
+        , <&gpio1 2 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>          /*  6  R1C5 SW33  P1.02, inner pad */
+        , <&pro_micro 6 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>      /*  7  R1C4 SW32  P1.00 */
+        , <&pro_micro 5 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>      /*  8  R1C3 SW31  P0.24 */
+        , <&pro_micro 15 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>     /*  9  R1C2 SW30  P1.13 */
+        , <&gpio1 7 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>          /* 10  R1C1 SW29  P1.07, inner pad */
+        , <&pro_micro 8 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>      /* 11  R1C0 SW28  P1.04 */
+        , <&pro_micro 7 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>      /* 12  R2C5 SW39  P0.11 */
+        , <&pro_micro 14 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>     /* 13  R2C4 SW38  P1.11 */
+        , <&pro_micro 16 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>     /* 14  R2C3 SW37  P0.10 */
+        , <&pro_micro 10 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>     /* 15  R2C2 SW36  P0.09 */
+        , <&gpio1 1 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>          /* 16  R2C1 SW35  P1.01, inner pad */
+        , <&pro_micro 9 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>      /* 17  R2C0 SW34  P1.06 */
+        , <&pro_micro 19 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>     /* 18  T2   SW42  P0.02 */
+        , <&pro_micro 18 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>     /* 19  T1   SW41  P1.15 */
+        , <&pro_micro 4 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>      /* 20  T0   SW40  P0.22 */
+        ;
+};

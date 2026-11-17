@@ -1,0 +1,10 @@
+# Firmware builds made by GitHub Actions. One .uf2 file per half, plus a
+# settings reset file for clearing Bluetooth pairings.
+---
+include:
+  - board: nice_nano_v2
+    shield: corne_diodeless_left
+  - board: nice_nano_v2
+    shield: corne_diodeless_right
+  - board: nice_nano_v2
+    shield: settings_reset
